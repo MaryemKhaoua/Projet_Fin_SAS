@@ -38,9 +38,11 @@ int main() {
                     tasks[count].id = id;
                     printf("Votre id est %d\n", id);
                     printf("Entrer le titre: ");
-                    scanf("%s", tasks[count].titre);
+                    scanf("%d", 0);
+                    scanf("%[^\n]", tasks[count].titre);
                     printf("Enter une description pour cette tache: ");
-                    scanf("%s", tasks[count].description);
+                    scanf("%d", 0);
+                    scanf("%[^\n]", tasks[count].description);
                     printf("[1] for to do, [2] for doing, [3] for done): ");
                     scanf("%s", tasks[count].statut);
                     printf("Enter deadline (jj/mm/aaaa): ");
@@ -62,9 +64,11 @@ int main() {
         tasks[count].id = id;
         printf("Votre id est %d\n", id);
         printf("Enter le titre: ");
-        scanf("%s", tasks[count].titre);
+        scanf("%d", 0);
+        scanf("%[^\n]", tasks[count].titre);
         printf("Enter une description pour cette tache: ");
-        scanf("%s", tasks[count].description);
+        scanf("%d", 0);
+        scanf("%[^\n]", tasks[count].description);
         printf("Enter ur statut ([1] for to do, [2] for doing, [3] for done): ");
         scanf("%s", tasks[count].statut);
         printf("Entre deadline (jj/mm/aaaa): ");
