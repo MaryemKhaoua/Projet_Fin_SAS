@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include <string.h>
 
-int choix, i, nbr, count = 0, id = 497;
+int choix, i, j, nbr, count = 0, id = 497;
 
 struct deadline {
     int day;
@@ -15,7 +16,21 @@ struct task {
     char description[70];
     char statut[20]; 
 };
-
+    void sort(struct task tasks[], int count)
+{
+    for (i = 0; i < count - 1; i++)
+    {
+        for (j = i + 1; j < count; j++)
+        {
+            if (strcmp(tasks[i].titre, tasks[j].titre) > 0)
+            {
+                struct task temp = tasks[i];
+                tasks[i] = tasks[j];
+                tasks[j] = temp;
+            }
+        }
+    }
+}
 int main() {
     struct task tasks[10];
 
@@ -26,7 +41,8 @@ int main() {
         printf("Cliquez sur 1 pour ajouter une nouvelle tache\n");
         printf("Cliquez sur 2 ajouter plusieurs  taches\n");
         printf("Cliquez sur 3 pour afficher les tache\n");
-        printf("Cliquez sur 4 pour quitter\n");
+        printf("Cliquez sur 4 pour afficher les tache trier\n");
+        printf("Cliquez sur 5 pour quitter\n");
         printf("==================================================================================\n");
         printf("Entrer votre choix: ");
         scanf("%d", &choix);
@@ -84,7 +100,7 @@ int main() {
 
             case 3:
                         printf("==================================================================================\n");
-                        printf("Liste des tâches :\n");
+                        printf("Liste des taches :\n");
                         printf("==================================================================================\n");
                         printf("ID\tTitre\tDescription\tStatut\tDeadline\n");
                         printf("==================================================================================\n");
@@ -96,11 +112,20 @@ int main() {
                         printf("==================================================================================\n");
                 break;
 
-            case 4:
+            case 4: sort(tasks, count);
+                printf("Taches triees par ordre alphabetique :\n");
+                printf("ID\tTitre\tDescription\tStatut\tDeadline\n");
+                printf("==================================================================================\n");
+                for (i = 0; i < count; i++) {
+                    printf("%d\t%s\t%s\t%s\t\t%2d/%2d/%4d\n", tasks[i].id, tasks[i].titre, tasks[i].description, tasks[i].statut,
+                            tasks[i].dl.day, tasks[i].dl.month, tasks[i].dl.year);
+                }
+                printf("==================================================================================\n");
+                break;
                 return 0;
 
             default:
-                printf("Choix invalide. Réessayez.\n");
+                printf("Choix invalide. Reessayez.\n");
                 break;
         }
     }
