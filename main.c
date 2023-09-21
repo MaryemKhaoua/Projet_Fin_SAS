@@ -62,6 +62,26 @@ struct task {
         }
     }
 }
+
+void sortdl(struct task tasks[], int count)
+{
+    for (i = 0; i < count - 1; i++)
+    {
+        for (j = i + 1; j < count; j++)
+        {
+            
+            if (tasks[i].dl.year > tasks[j].dl.year ||
+               (tasks[i].dl.year == tasks[j].dl.year && tasks[i].dl.month > tasks[j].dl.month) ||
+               (tasks[i].dl.year == tasks[j].dl.year && tasks[i].dl.month == tasks[j].dl.month && tasks[i].dl.day > tasks[j].dl.day))
+            {
+                struct task temp = tasks[i];
+                tasks[i] = tasks[j];
+                tasks[j] = temp;
+            }
+        }
+    }
+}
+
 int main() {
     struct task tasks[10];
 
@@ -150,6 +170,7 @@ int main() {
                     printf("Cliquez sur 1 pour trier par titre\n");
                     printf("Cliquez sur 2 pour trier par description\n");
                     printf("Cliquez sur 3 pour trier par statut\n");
+                    printf("Cliquez sur 4 pour trier par deadline\n");
                     printf("entre votre choix");
                     scanf("%d", &choix);
                     switch (choix)
@@ -185,6 +206,17 @@ int main() {
                 }
                 printf("==================================================================================\n");
                 break;
+                case 4: sortdl(tasks, count);
+                printf("Taches triees par deadline :\n");
+                    printf("ID\tTitre\tDescription\tStatut\tDeadline\n");
+                    printf("==================================================================================\n");
+                    for (i = 0; i < count; i++) {
+                    printf("%d\t%s\t%s\t%s\t\t%2d/%2d/%4d\n", tasks[i].id, tasks[i].titre, tasks[i].description, tasks[i].statut,
+                            tasks[i].dl.day, tasks[i].dl.month, tasks[i].dl.year);
+                }
+                printf("==================================================================================\n");
+                break;
+
                     default:
                         break;
                     }
