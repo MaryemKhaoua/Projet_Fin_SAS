@@ -16,6 +16,37 @@ struct task {
     char description[70];
     char statut[20]; 
 };
+  void sortst(struct task tasks[], int count)
+{
+    for (i = 0; i < count - 1; i++)
+    {
+        for (j = i + 1; j < count; j++)
+        {
+            if (strcmp(tasks[i].statut, tasks[j].statut) > 0)
+            {
+                struct task temp = tasks[i];
+                tasks[i] = tasks[j];
+                tasks[j] = temp;
+            }
+        }
+    }
+}
+  void sortdes(struct task tasks[], int count)
+{
+    for (i = 0; i < count - 1; i++)
+    {
+        for (j = i + 1; j < count; j++)
+        {
+            if (strcmp(tasks[i].description, tasks[j].description) > 0)
+            {
+                struct task temp = tasks[i];
+                tasks[i] = tasks[j];
+                tasks[j] = temp;
+            }
+        }
+    }
+}
+
     void sort(struct task tasks[], int count)
 {
     for (i = 0; i < count - 1; i++)
@@ -41,7 +72,7 @@ int main() {
         printf("Cliquez sur 1 pour ajouter une nouvelle tache\n");
         printf("Cliquez sur 2 ajouter plusieurs  taches\n");
         printf("Cliquez sur 3 pour afficher les tache\n");
-        printf("Cliquez sur 4 pour afficher les tache trier\n");
+        printf("Cliquez sur 4 pour affi les Taches triees par ordre alphabetique\n");
         printf("Cliquez sur 5 pour quitter\n");
         printf("==================================================================================\n");
         printf("Entrer votre choix: ");
@@ -59,8 +90,9 @@ int main() {
                     printf("Enter une description pour cette tache: ");
                     scanf("%d", 0);
                     scanf("%[^\n]", tasks[count].description);
-                    printf("[1] for to do, [2] for doing, [3] for done): ");
-                    scanf("%s", tasks[count].statut);
+                    printf("enter ur statut : a realiser, en cours de realisation,  finalisee: ");
+                    scanf("%d", 0);
+                    scanf("%[^\n]", tasks[count].statut);
                     printf("Enter deadline (jj/mm/aaaa): ");
                     scanf("%d/%d/%d", &tasks[count].dl.day, &tasks[count].dl.month, &tasks[count].dl.year);
                     count++;
@@ -85,8 +117,9 @@ int main() {
         printf("Enter une description pour cette tache: ");
         scanf("%d", 0);
         scanf("%[^\n]", tasks[count].description);
-        printf("Enter ur statut ([1] for to do, [2] for doing, [3] for done): ");
-        scanf("%s", tasks[count].statut);
+       printf("enter ur statut : a realiser, en cours de realisation,  finalisee: ");
+       scanf("%d", 0);
+        scanf("%[^\n]", tasks[count].statut);
         printf("Entre deadline (jj/mm/aaaa): ");
         scanf("%d/%d/%d", &tasks[count].dl.day, &tasks[count].dl.month, &tasks[count].dl.year);
         count++;
@@ -112,15 +145,51 @@ int main() {
                         printf("==================================================================================\n");
                 break;
 
-            case 4: sort(tasks, count);
-                printf("Taches triees par ordre alphabetique :\n");
-                printf("ID\tTitre\tDescription\tStatut\tDeadline\n");
-                printf("==================================================================================\n");
-                for (i = 0; i < count; i++) {
+            case 4: while(1)
+            {
+                    printf("Cliquez sur 1 pour trier par titre\n");
+                    printf("Cliquez sur 2 pour trier par description\n");
+                    printf("Cliquez sur 3 pour trier par statut\n");
+                    printf("entre votre choix");
+                    scanf("%d", &choix);
+                    switch (choix)
+                    {
+                    case 1:
+                    sort(tasks, count);
+                    printf("Taches triees par titre :\n");
+                    printf("ID\tTitre\tDescription\tStatut\tDeadline\n");
+                    printf("==================================================================================\n");
+                    for (i = 0; i < count; i++) {
                     printf("%d\t%s\t%s\t%s\t\t%2d/%2d/%4d\n", tasks[i].id, tasks[i].titre, tasks[i].description, tasks[i].statut,
                             tasks[i].dl.day, tasks[i].dl.month, tasks[i].dl.year);
                 }
                 printf("==================================================================================\n");
+                        break;
+                    case 2: sortdes(tasks, count);
+                     printf("Taches triees par description :\n");
+                    printf("ID\tTitre\tDescription\tStatut\tDeadline\n");
+                    printf("==================================================================================\n");
+                    for (i = 0; i < count; i++) {
+                    printf("%d\t%s\t%s\t%s\t\t%2d/%2d/%4d\n", tasks[i].id, tasks[i].titre, tasks[i].description, tasks[i].statut,
+                            tasks[i].dl.day, tasks[i].dl.month, tasks[i].dl.year);
+                }
+                printf("==================================================================================\n");
+                break;
+                case 3: sortst(tasks, count);
+                printf("Taches triees par status :\n");
+                    printf("ID\tTitre\tDescription\tStatut\tDeadline\n");
+                    printf("==================================================================================\n");
+                    for (i = 0; i < count; i++) {
+                    printf("%d\t%s\t%s\t%s\t\t%2d/%2d/%4d\n", tasks[i].id, tasks[i].titre, tasks[i].description, tasks[i].statut,
+                            tasks[i].dl.day, tasks[i].dl.month, tasks[i].dl.year);
+                }
+                printf("==================================================================================\n");
+                break;
+                    default:
+                        break;
+                    }
+            }
+                    
                 break;
                 return 0;
 
