@@ -18,6 +18,7 @@ struct task
     char description[70];
     char statut[20];
 };
+<<<<<<< HEAD
 
 void sort(struct task tasks[], int count)
 {
@@ -41,6 +42,24 @@ void sortdl(struct task tasks[], int count)
     {
         for (j = i + 1; j < count; j++)
         {
+=======
+
+void sort(struct task tasks[], int count) {
+    for (i = 0; i < count - 1; i++) {
+        for (j = i + 1; j < count; j++) {
+            if (strcmp(tasks[i].titre, tasks[j].titre) > 0) {
+                struct task temp = tasks[i];
+                tasks[i] = tasks[j];
+                tasks[j] = temp;
+            }
+        }
+    }
+}
+
+void sortdl(struct task tasks[], int count) {
+    for (i = 0; i < count - 1; i++) {
+        for (j = i + 1; j < count; j++) {
+>>>>>>> 43230b945df83055485f0ca8e69651a4cb420a53
             if (tasks[i].dl.year > tasks[j].dl.year ||
                 (tasks[i].dl.year == tasks[j].dl.year && tasks[i].dl.month > tasks[j].dl.month) ||
                 (tasks[i].dl.year == tasks[j].dl.year && tasks[i].dl.month == tasks[j].dl.month && tasks[i].dl.day > tasks[j].dl.day)) {
@@ -220,6 +239,7 @@ int main()
                     }
                 }
                 break;
+<<<<<<< HEAD
                 case 5:
                 printf("Cliquez sur 1 pour modifier la description d'une tache\n");
                 printf("Cliquez sur 2 pour modifier le statut d'une tache\n");
@@ -236,6 +256,10 @@ int main()
                     break;
                 }
             case 6:
+=======
+
+            case 5:
+>>>>>>> 43230b945df83055485f0ca8e69651a4cb420a53
                 return 0;
 
             default:
