@@ -106,7 +106,8 @@ int main()
 {
     struct task tasks[10];
 
-    while (1) {
+    while (1)
+    {
         printf("==================================================================================\n");
         printf("                                Menu d'application\n");
         printf("==================================================================================\n");
@@ -120,7 +121,8 @@ int main()
         printf("Entrer votre choix: ");
         scanf("%d", &choix);
 
-        switch (choix) {
+        switch (choix)
+        {
             case 1:
                 printf("Ajouter une tache:\n");
                 if (count < 10) {
@@ -139,7 +141,8 @@ int main()
                     scanf("%d/%d/%d", &tasks[count].dl.day, &tasks[count].dl.month, &tasks[count].dl.year);
                     count++;
                     id++;
-                } else {
+                } else
+                {
                     printf("nbr of tasks has been reached\n");
                 }
                 break;
@@ -167,7 +170,8 @@ int main()
                     id++;
                 }
 
-                if (count >= 10) {
+                if (count >= 10)
+                {
                     printf("nbr of tasks has been reached\n");
                 }
                 break;
@@ -186,12 +190,13 @@ int main()
                 break;
 
             case 4:
-                while (1) {
+                 
                     printf("Cliquez sur 1 pour trier par titre\n");
                     printf("Cliquez sur 2 pour trier par deadline\n");
-                    printf("entre votre choix");
+                    printf("entre votre choix: ");
                     scanf("%d", &choix);
-                    switch (choix) {
+                    switch (choix)
+                    {
                         case 1:
                             sort(tasks, count);
                             printf("Taches triees par titre :\n");
@@ -215,32 +220,51 @@ int main()
                             }
                             printf("==================================================================================\n");
                             break;
+                            
                         default:
                             break;
                     }
-                }
+                
+                
                 break;
+                
                 case 5:
-                printf("Cliquez sur 1 pour modifier la description d'une tache\n");
-                printf("Cliquez sur 2 pour modifier le statut d'une tache\n");
-                printf("Cliquez sur 3 pour modifier le deadline d'une tache\n");
-                printf("Entre votre choix: ");
-                scanf("%d", &choix);
-                switch (choix)
-                {
-                    case 1: modifydes(tasks, count);
-                    break;
-                        case 2: modifyst(tasks, count);
-                    break;
-                    case 3: modifydl(tasks, count);
-                    break;
-                }
-            case 6:
-                return 0;
+            while (1)
+             {
+                 printf("Cliquez sur 1 pour modifier la description d'une tache\n");
+                 printf("Cliquez sur 2 pour modifier le statut d'une tache\n");
+                 printf("Cliquez sur 3 pour modifier le deadline d'une tache\n");
+                 printf("Cliquez sur 4 pour revenir au menu principal\n");
+                 printf("Entre votre choix: ");
+                 scanf("%d", &choix);
 
+                switch (choix) {
+                      case 1: modifydes(tasks, count);
+                break;
+            case 2: modifyst(tasks, count);
+                break;
+            case 3: modifydl(tasks, count);  
+                break;
+            case 4:
+                break;
             default:
                 printf("Choix invalide. Reessayez.\n");
                 break;
+        }
+
+        if (choix == 4)
+        {
+            
+            break;
+        }
+    }
+    break;
+            case 6:
+            return 0;
+            
+            default:
+            printf("Choix invalide. Reessayez.\n");
+            break;
         }
     }
 
