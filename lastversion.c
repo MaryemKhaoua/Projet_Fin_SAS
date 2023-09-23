@@ -155,9 +155,9 @@ void statistic(const struct task tasks[], int count)
         nbrCo++;
         else
         nbrInco++;
-        printf("le nombre total des taches est : %d \n", &nbrTasks);
-        printf("le nombre total des taches completes est : %d \n", &nbrCo);
-        printf("le nombre total des taches incompletes est : %d \n", &nbrInco);
+        printf("le nombre total des taches est : %d \n", nbrTasks);
+        printf("le nombre total des taches completes est : %d \n", nbrCo);
+        printf("le nombre total des taches incompletes est : %d \n", nbrInco);
     }
 }
 int main()
