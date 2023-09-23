@@ -125,14 +125,14 @@ void searchid(const struct task tasks[], int count)
 }
 void searchTitre(const struct task tasks[], int count)
 {
-    int byTitre;
+    char byTitre[26];
     int found = 0;
 
     printf("enter the title of tasks u want to search for: ");
     scanf("%d", &byTitre);
     for(i = 0; i < count; i++)
     {
-        if (tasks[i].titre == byTitre)
+        if (strcmp(tasks[i].titre, byTitre) == 0)
         {
             found = 1;
             printf("%d\t%s\t%s\t%s\t\t%2d/%2d/%4d\n", tasks[i].id, tasks[i].titre, tasks[i].description, tasks[i].statut,
@@ -143,6 +143,22 @@ void searchTitre(const struct task tasks[], int count)
         printf("Task with id %d is found.\n", byTitre);
     else
         printf("task with tis is  %d not found\n", byTitre);
+}
+void statistic(const struct task tasks[], int count)
+{
+    int nbrTasks = count;
+    int nbrCo = 0;
+    int nbrInco = 0;
+    for (i = 0; i < count; i++)
+    {
+        if (strcmp(tasks[i].statut, "finalisee") == 0)
+        nbrCo++;
+        else
+        nbrInco++;
+        printf("le nombre total des taches est : %d \n", &nbrTasks);
+        printf("le nombre total des taches completes est : %d \n", &nbrCo);
+        printf("le nombre total des taches incompletes est : %d \n", &nbrInco);
+    }
 }
 int main()
 {
@@ -159,8 +175,9 @@ int main()
         printf("Cliquez sur 4 pour affi les Taches triees par ordre alphabetique\n");
         printf("Cliquez sur 5 pour modification\n");
         printf("Cliquez sur 6 to search a task by id: \n");
-         printf("Cliquez sur 7 to search a task by titre: \n");
-        printf("Cliquez sur 8 pour quitter\n");
+        printf("Cliquez sur 7 to search a task by titre: \n");
+        printf("Cliquez sur 8 pour afficher Statistiques\n");
+        printf("Cliquez sur 9 pour quitter\n");
         printf("==================================================================================\n");
         printf("Entrer votre choix: ");
         scanf("%d", &choix);
@@ -306,7 +323,9 @@ int main()
             case 6:  searchid(tasks, count);
             break;
             case 7: searchTitre(tasks, count);
-            case 8:
+            break;
+            case 8: statistic(tasks, count);
+            case 9:
             return 0;
             
             default:
