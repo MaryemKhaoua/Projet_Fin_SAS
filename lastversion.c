@@ -102,6 +102,48 @@ void modifydl(struct task tasks[], int count)
     }
     printf("task with this id %d not found\n", byId);
 }
+void searchid(const struct task tasks[], int count)
+{
+    int byId;
+    int found = 0;
+
+    printf("enter the id of tasks u want to search for: ");
+    scanf("%d", &byId);
+    for(i = 0; i < count; i++)
+    {
+        if (tasks[i].id == byId)
+        {
+            found = 1;
+            printf("%d\t%s\t%s\t%s\t\t%2d/%2d/%4d\n", tasks[i].id, tasks[i].titre, tasks[i].description, tasks[i].statut,
+                   tasks[i].dl.day, tasks[i].dl.month, tasks[i].dl.year);
+        }
+    }
+     if (found)
+        printf("Task with id %d is found.\n", byId);
+    else
+        printf("task with tis is  %d not found\n", byId);
+}
+void searchTitre(const struct task tasks[], int count)
+{
+    int byTitre;
+    int found = 0;
+
+    printf("enter the title of tasks u want to search for: ");
+    scanf("%d", &byTitre);
+    for(i = 0; i < count; i++)
+    {
+        if (tasks[i].titre == byTitre)
+        {
+            found = 1;
+            printf("%d\t%s\t%s\t%s\t\t%2d/%2d/%4d\n", tasks[i].id, tasks[i].titre, tasks[i].description, tasks[i].statut,
+                   tasks[i].dl.day, tasks[i].dl.month, tasks[i].dl.year);
+        }
+    }
+     if (found)
+        printf("Task with id %d is found.\n", byTitre);
+    else
+        printf("task with tis is  %d not found\n", byTitre);
+}
 int main()
 {
     struct task tasks[10];
@@ -116,7 +158,9 @@ int main()
         printf("Cliquez sur 3 pour afficher les tache\n");
         printf("Cliquez sur 4 pour affi les Taches triees par ordre alphabetique\n");
         printf("Cliquez sur 5 pour modification\n");
-        printf("Cliquez sur 6 pour quitter\n");
+        printf("Cliquez sur 6 to search a task by id: \n");
+         printf("Cliquez sur 7 to search a task by titre: \n");
+        printf("Cliquez sur 8 pour quitter\n");
         printf("==================================================================================\n");
         printf("Entrer votre choix: ");
         scanf("%d", &choix);
@@ -259,7 +303,10 @@ int main()
         }
     }
     break;
-            case 6:
+            case 6:  searchid(tasks, count);
+            break;
+            case 7: searchTitre(tasks, count);
+            case 8:
             return 0;
             
             default:
