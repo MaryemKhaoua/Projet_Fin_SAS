@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 int choix, i, j, nbr, count = 0, id = 497;
 
@@ -48,6 +49,31 @@ void sortdl(struct task tasks[], int count)
                 tasks[i] = tasks[j];
                 tasks[j] = temp;
             }
+        }
+    }
+}
+void affdltroisjrs(const struct task tasks[], int count)
+{
+    time_t currentTime;
+    struct tm *currentDate;
+    time(&currentTime);
+    currentDate = localtime(&currentTime);
+
+    int currentDay = currentDate->tm_mday;
+    int currentMonth = currentDate->tm_mon + 1;
+    int currentYear = currentDate->tm_year + 1900;
+
+    printf("les taches dont le deadline est dans 3 jours ou moins:\n");
+    printf("ID\tTitre\tDescription\tStatut\tDeadline\n");
+
+    for (int i = 0; i < count; i++)
+    {
+        int daysRemaining = (tasks[i].dl.year - currentYear) * 365 + (tasks[i].dl.month - currentMonth) * 30 + (tasks[i].dl.day - currentDay);
+
+        if (daysRemaining >= 0 && daysRemaining <= 3)
+        {
+            printf("%d\t%s\t%s\t%s\t\t%2d/%2d/%4d\n", tasks[i].id, tasks[i].titre, tasks[i].description, tasks[i].statut,
+                   tasks[i].dl.day, tasks[i].dl.month, tasks[i].dl.year);
         }
     }
 }
@@ -129,7 +155,7 @@ void searchTitre(const struct task tasks[], int count)
     int found = 0;
 
     printf("enter the title of tasks u want to search for: ");
-    scanf("%d", &byTitre);
+    scanf("%s", byTitre);
     for(i = 0; i < count; i++)
     {
         if (strcmp(tasks[i].titre, byTitre) == 0)
@@ -140,9 +166,9 @@ void searchTitre(const struct task tasks[], int count)
         }
     }
      if (found)
-        printf("Task with id %d is found.\n", byTitre);
+        printf("Task with titre %s is found.\n", byTitre);
     else
-        printf("task with tis is  %d not found\n", byTitre);
+        printf("task with this titre %s is not found\n", byTitre);
 }
 void statistic(const struct task tasks[], int count)
 {
@@ -155,11 +181,34 @@ void statistic(const struct task tasks[], int count)
         nbrCo++;
         else
         nbrInco++;
+    }
         printf("le nombre total des taches est : %d \n", nbrTasks);
         printf("le nombre total des taches completes est : %d \n", nbrCo);
         printf("le nombre total des taches incompletes est : %d \n", nbrInco);
+    
+}
+void statisticdeadline(const struct task tasks[], int count)
+{
+    time_t currentTime;
+    struct tm *currentDate;
+    time(&currentTime);
+    currentDate = localtime(&currentTime);
+
+    int currentDay = currentDate->tm_mday;
+    int currentMonth = currentDate->tm_mon + 1;
+    int currentYear = currentDate->tm_year + 1900;
+
+    printf("nombre de jours restants jusqu'au delai de chaque teche :\n");
+    printf("ID\tTitre\tjours restant\n");
+
+    for (int i = 0; i < count; i++)
+    {
+        int jrsrestant = (tasks[i].dl.year - currentYear) * 365 + (tasks[i].dl.month - currentMonth) * 30 + (tasks[i].dl.day - currentDay);
+
+        printf("%d\t%s\t%d\n", tasks[i].id, tasks[i].titre, jrsrestant);
     }
 }
+
 int main()
 {
     struct task tasks[10];
@@ -210,7 +259,7 @@ int main()
                 
             case 2:
                 printf("Ajouter plusieurs taches:\n");
-                printf("How many tasks do u want to add");
+                printf("How many tasks do u want to add : ");
                 scanf("%d", &nbr);
 
                 for (i = 0; i < nbr && count < 10; i++) {
@@ -254,6 +303,7 @@ int main()
                  
                     printf("Cliquez sur 1 pour trier par titre\n");
                     printf("Cliquez sur 2 pour trier par deadline\n");
+                    printf("Cliquez sur 3 pour trier dont le deadline est dans 3 jours ou moins\n");
                     printf("entre votre choix: ");
                     scanf("%d", &choix);
                     switch (choix)
@@ -281,8 +331,11 @@ int main()
                             }
                             printf("==================================================================================\n");
                             break;
+                            case 3: affdltroisjrs(tasks, count);
+                            break;
                             
                         default:
+                        printf("choix invalid");
                             break;
                     }
                 
@@ -325,6 +378,8 @@ int main()
             case 7: searchTitre(tasks, count);
             break;
             case 8: statistic(tasks, count);
+                    statisticdeadline(tasks, count);
+            break;
             case 9:
             return 0;
             
