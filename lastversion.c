@@ -88,7 +88,7 @@ void modifydes(struct task tasks[], int count)
         {
             printf("Enter ur new description : ");
             scanf("%s", tasks[i].description);
-            printf("lur description a ete modifiee");
+            printf("ur description a ete modifiee");
             return;
         }
     }
@@ -216,7 +216,7 @@ int main()
     while (1)
     {
         printf("==================================================================================\n");
-        printf("                                Menu d'application\n");
+        printf("                                Gestionnaire de taches\\n");
         printf("==================================================================================\n");
         printf("Cliquez sur 1 pour ajouter une nouvelle tache\n");
         printf("Cliquez sur 2 ajouter plusieurs  taches\n");
@@ -234,8 +234,8 @@ int main()
         switch (choix)
         {
             case 1:
-                printf("Ajouter une tache:\n");
-                if (count < 10) {
+                if (count < 10) 
+                {
                     tasks[count].id = id;
                     printf("Votre id est %d\n", id);
                     printf("Entrer le titre: ");
