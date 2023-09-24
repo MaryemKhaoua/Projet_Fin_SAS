@@ -149,6 +149,31 @@ void searchid(const struct task tasks[], int count)
     else
         printf("task with tis is  %d not found\n", byId);
 }
+void suppression(struct task tasks[], int *count)
+{
+    int byId, found = 0;
+    printf("enter the id of the task u want to delete: ");
+    scanf("%d", &byId);
+
+    for(int i = 0; i < *count; i++)
+    {
+        if (tasks[i].id == byId)
+        {
+            for (int j = i; j < *count - 1; j++)
+            {
+                tasks[j] = tasks[j + 1];
+            }
+            (*count)--;
+            found = 1;
+            printf("La tache avec l'ID %d a ete supprimee.\n", byId);
+            break;
+        }
+    }
+    if (!found)
+    {
+        printf("Aucune tache avec l'ID %d n'a ete trouvee.\n", byId);
+    }
+}
 void searchTitre(const struct task tasks[], int count)
 {
     char byTitre[26];
@@ -215,21 +240,21 @@ int main()
 
     while (1)
     {
-        printf("       =============================================\n");
-        printf("           Application de Gestion de Taches\n");
-        printf("       =============================================\n");
-        printf("1. Ajouter une nouvelle tache\n");
-        printf("2. Ajouter plusieurs taches\n");
-        printf("3. Afficher la liste de toutes les taches\n");
-        printf("4. Modifier une tache\n");
-        printf("5. Supprimer une tache\n");
-        printf("6. Rechercher une tache par identifiant\n");
-        printf("7. Rechercher une tache par titre\n");
-        printf("8. Afficher les statistiques\n");
-        printf("9. Quitter\n");
-        printf("       =============================================\n");
-        printf("Entrez votre choix : ");
-
+        printf("==================================================================================\n");
+        printf("                                Menu d'application\n");
+        printf("==================================================================================\n");
+        printf("Cliquez sur 1 pour ajouter une nouvelle tache\n");
+        printf("Cliquez sur 2 ajouter plusieurs  taches\n");
+        printf("Cliquez sur 3 pour afficher les tache\n");
+        printf("Cliquez sur 4 pour affi les Taches triees par ordre alphabetique\n");
+        printf("Cliquez sur 5 pour modification\n");
+        printf("Cliquez sur 6 pour supprimer une tache\n");
+        printf("Cliquez sur 7 to search a task by id: \n");
+        printf("Cliquez sur 8 to search a task by titre: \n");
+        printf("Cliquez sur 9 pour afficher Statistiques\n");
+        printf("Cliquez sur 0 pour quitter\n");
+        printf("==================================================================================\n");
+        printf("Entrer votre choix: ");
         scanf("%d", &choix);
 
         switch (choix)
@@ -374,14 +399,16 @@ int main()
         }
     }
     break;
-            case 6:  searchid(tasks, count);
+            case 6 : suppression(tasks, &count);
             break;
-            case 7: searchTitre(tasks, count);
+            case 7:  searchid(tasks, count);
             break;
-            case 8: statistic(tasks, count);
+            case 8: searchTitre(tasks, count);
+            break;
+            case 9: statistic(tasks, count);
                     statisticdeadline(tasks, count);
             break;
-            case 9:
+            case 0:
             return 0;
             
             default:
