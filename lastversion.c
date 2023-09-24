@@ -215,20 +215,21 @@ int main()
 
     while (1)
     {
-        printf("==================================================================================\n");
-        printf("                                Gestionnaire de taches\\n");
-        printf("==================================================================================\n");
-        printf("Cliquez sur 1 pour ajouter une nouvelle tache\n");
-        printf("Cliquez sur 2 ajouter plusieurs  taches\n");
-        printf("Cliquez sur 3 pour afficher les tache\n");
-        printf("Cliquez sur 4 pour affi les Taches triees par ordre alphabetique\n");
-        printf("Cliquez sur 5 pour modification\n");
-        printf("Cliquez sur 6 to search a task by id: \n");
-        printf("Cliquez sur 7 to search a task by titre: \n");
-        printf("Cliquez sur 8 pour afficher Statistiques\n");
-        printf("Cliquez sur 9 pour quitter\n");
-        printf("==================================================================================\n");
-        printf("Entrer votre choix: ");
+        printf("       =============================================\n");
+        printf("           Application de Gestion de Taches\n");
+        printf("       =============================================\n");
+        printf("1. Ajouter une nouvelle tache\n");
+        printf("2. Ajouter plusieurs taches\n");
+        printf("3. Afficher la liste de toutes les taches\n");
+        printf("4. Modifier une tache\n");
+        printf("5. Supprimer une tache\n");
+        printf("6. Rechercher une tache par identifiant\n");
+        printf("7. Rechercher une tache par titre\n");
+        printf("8. Afficher les statistiques\n");
+        printf("9. Quitter\n");
+        printf("       =============================================\n");
+        printf("Entrez votre choix : ");
+
         scanf("%d", &choix);
 
         switch (choix)
