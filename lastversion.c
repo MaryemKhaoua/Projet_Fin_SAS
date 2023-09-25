@@ -2,7 +2,8 @@
 #include <string.h>
 #include <time.h>
 
-int choix, i, j, nbr, count = 0, id = 497;
+int choix, i, j, nbr, count = 0, id = 0;
+
 
 struct deadline
 {
@@ -49,31 +50,6 @@ void sortdl(struct task tasks[], int count)
                 tasks[i] = tasks[j];
                 tasks[j] = temp;
             }
-        }
-    }
-}
-void affdltroisjrs(const struct task tasks[], int count)
-{
-    time_t currentTime;
-    struct tm *currentDate;
-    time(&currentTime);
-    currentDate = localtime(&currentTime);
-
-    int currentDay = currentDate->tm_mday;
-    int currentMonth = currentDate->tm_mon + 1;
-    int currentYear = currentDate->tm_year + 1900;
-
-    printf("les taches dont le deadline est dans 3 jours ou moins:\n");
-    printf("ID\tTitre\tDescription\tStatut\tDeadline\n");
-
-    for (int i = 0; i < count; i++)
-    {
-        int daysRemaining = (tasks[i].dl.year - currentYear) * 365 + (tasks[i].dl.month - currentMonth) * 30 + (tasks[i].dl.day - currentDay);
-
-        if (daysRemaining >= 0 && daysRemaining <= 3)
-        {
-            printf("%d\t%s\t%s\t%s\t\t%2d/%2d/%4d\n", tasks[i].id, tasks[i].titre, tasks[i].description, tasks[i].statut,
-                   tasks[i].dl.day, tasks[i].dl.month, tasks[i].dl.year);
         }
     }
 }
@@ -149,30 +125,32 @@ void searchid(const struct task tasks[], int count)
     else
         printf("task with tis is  %d not found\n", byId);
 }
-void suppression(struct task tasks[], int *count)
+void suppression()
 {
-    int byId, found = 0;
-    printf("enter the id of the task u want to delete: ");
+    int byId;
+    struct task tasks[10];
+    printf("+--------------------------------------------------+\n");
+    printf("|   Enter the id of the task you want to delete !  |\n");
+    printf("+--------------------------------------------------+\n");
     scanf("%d", &byId);
-
-    for(int i = 0; i < *count; i++)
+    j = 0;
+    i = 0;
+    while(i < count)
     {
-        if (tasks[i].id == byId)
+        if(tasks[j].id == byId)
         {
-            for (int j = i; j < *count - 1; j++)
+            while(j < count - 1)  
             {
                 tasks[j] = tasks[j + 1];
+                j++;
             }
-            (*count)--;
-            found = 1;
-            printf("La tache avec l'ID %d a ete supprimee.\n", byId);
-            break;
+            i++;
         }
     }
-    if (!found)
-    {
-        printf("Aucune tache avec l'ID %d n'a ete trouvee.\n", byId);
-    }
+    count--;
+    printf("+----------------------------------------------+\n");
+    printf("|     Your task got deleted successfuly !      |\n");
+    printf("+----------------------------------------------+\n");
 }
 void searchTitre(const struct task tasks[], int count)
 {
@@ -212,32 +190,11 @@ void statistic(const struct task tasks[], int count)
         printf("le nombre total des taches incompletes est : %d \n", nbrInco);
     
 }
-void statisticdeadline(const struct task tasks[], int count)
-{
-    time_t currentTime;
-    struct tm *currentDate;
-    time(&currentTime);
-    currentDate = localtime(&currentTime);
-
-    int currentDay = currentDate->tm_mday;
-    int currentMonth = currentDate->tm_mon + 1;
-    int currentYear = currentDate->tm_year + 1900;
-
-    printf("nombre de jours restants jusqu'au delai de chaque teche :\n");
-    printf("ID\tTitre\tjours restant\n");
-
-    for (int i = 0; i < count; i++)
-    {
-        int jrsrestant = (tasks[i].dl.year - currentYear) * 365 + (tasks[i].dl.month - currentMonth) * 30 + (tasks[i].dl.day - currentDay);
-
-        printf("%d\t%s\t%d\n", tasks[i].id, tasks[i].titre, jrsrestant);
-    }
-}
 
 int main()
 {
+    
     struct task tasks[10];
-
     while (1)
     {
         printf("==================================================================================\n");
@@ -329,7 +286,6 @@ int main()
                  
                     printf("Cliquez sur 1 pour trier par titre\n");
                     printf("Cliquez sur 2 pour trier par deadline\n");
-                    printf("Cliquez sur 3 pour trier dont le deadline est dans 3 jours ou moins\n");
                     printf("entre votre choix: ");
                     scanf("%d", &choix);
                     switch (choix)
@@ -356,8 +312,6 @@ int main()
                                        tasks[i].dl.day, tasks[i].dl.month, tasks[i].dl.year);
                             }
                             printf("==================================================================================\n");
-                            break;
-                            case 3: affdltroisjrs(tasks, count);
                             break;
                             
                         default:
@@ -399,14 +353,13 @@ int main()
         }
     }
     break;
-            case 6 : suppression(tasks, &count);
+            case 6 : suppression();
             break;
             case 7:  searchid(tasks, count);
             break;
             case 8: searchTitre(tasks, count);
             break;
             case 9: statistic(tasks, count);
-                    statisticdeadline(tasks, count);
             break;
             case 0:
             return 0;
